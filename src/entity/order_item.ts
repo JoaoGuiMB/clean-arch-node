@@ -3,7 +3,7 @@ export default class OrderItem {
   name: string;
   price: number;
 
-  constructor(id: string, name: string, price: number, quantity: number) {
+  constructor(id: string, name: string, price: number) {
     this.id = id;
     this.name = name;
     this.price = price;
