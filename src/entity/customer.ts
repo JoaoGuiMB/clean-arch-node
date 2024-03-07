@@ -12,6 +12,10 @@ export default class Customer {
     this.validate();
   }
 
+  get name(): string {
+    return this._name;
+  }
+
   validate() {
     if (this._id.length === 0) {
       throw new Error("Id is required");
