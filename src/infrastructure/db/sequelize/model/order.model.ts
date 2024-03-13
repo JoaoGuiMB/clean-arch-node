@@ -1,3 +1,5 @@
+import CustomerModel from "./customer.model";
+import OrderItemModel from "./order-item.model";
 import {
   Table,
   Column,
@@ -7,8 +9,6 @@ import {
   BelongsTo,
   HasMany,
 } from "sequelize-typescript";
-import CustomerModel from "./customer.model";
-import OrderItemModel from "./order-item.model";
 
 @Table({
   tableName: "orders",
@@ -27,7 +27,7 @@ export default class OrderModel extends Model {
   declare customer: CustomerModel;
 
   @HasMany(() => OrderItemModel)
-  declare items: OrderItemModel[];
+  declare items: Awaited<OrderItemModel[]>;
 
   @Column({ allowNull: false })
   declare total: number;
