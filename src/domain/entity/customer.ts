@@ -1,6 +1,8 @@
 import EventDispatcher from "../event/@shared/event-dispatcher";
 import EventDispatcherInterface from "../event/@shared/event-dispatcher.interface";
+import ChangeAddressEvent from "../event/customer/change-address.event";
 import CustomerCreatedEvent from "../event/customer/customer-created.event";
+import EnviaConsoleLogChangeAddressHandler from "../event/customer/handler/envia-consolelog-changeAddress";
 import EnviaConsolelogHandler from "../event/customer/handler/envia-consolelog.handler";
 import EnviaConsolelog2Handler from "../event/customer/handler/envia-consolelog2.handler";
 import Address from "./address";
@@ -71,6 +73,20 @@ export default class Customer {
 
   changeAddress(address: Address) {
     this._address = address;
+    this._eventDispatcher.register(
+      "ChangeAddressEvent",
+      new EnviaConsoleLogChangeAddressHandler()
+    );
+
+    const eventData = {
+      customer: {
+        id: this._id,
+        name: this._name,
+      },
+      address: this._address,
+    };
+    const event = new ChangeAddressEvent(eventData);
+    this._eventDispatcher.notify(event);
   }
 
   isActive(): boolean {
