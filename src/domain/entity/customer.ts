@@ -1,3 +1,8 @@
+import EventDispatcher from "../event/@shared/event-dispatcher";
+import EventDispatcherInterface from "../event/@shared/event-dispatcher.interface";
+import CustomerCreatedEvent from "../event/customer/customer-created.event";
+import EnviaConsolelogHandler from "../event/customer/handler/envia-consolelog.handler";
+import EnviaConsolelog2Handler from "../event/customer/handler/envia-consolelog2.handler";
 import Address from "./address";
 
 export default class Customer {
@@ -6,6 +11,7 @@ export default class Customer {
   private _address!: Address;
   private _active: boolean = false;
   private _rewardPoints: number = 0;
+  private _eventDispatcher: EventDispatcherInterface = new EventDispatcher();
 
   constructor(id: string, name: string) {
     this._id = id;
@@ -23,6 +29,26 @@ export default class Customer {
 
   get rewardPoints(): number {
     return this._rewardPoints;
+  }
+
+  get eventDispatcher(): EventDispatcherInterface {
+    return this._eventDispatcher;
+  }
+
+  static create(id: string, name: string): Customer {
+    const customer = new Customer(id, name);
+    customer.eventDispatcher.register(
+      "CustomerCreatedEvent",
+      new EnviaConsolelogHandler()
+    );
+    customer.eventDispatcher.register(
+      "CustomerCreatedEvent",
+      new EnviaConsolelog2Handler()
+    );
+
+    const event = new CustomerCreatedEvent(customer);
+    customer.eventDispatcher.notify(event);
+    return customer;
   }
 
   validate() {
