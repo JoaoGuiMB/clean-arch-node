@@ -8,8 +8,8 @@ import OrderItemModel from "../db/sequelize/model/order-item.model";
 import ProductModel from "../db/sequelize/model/product.model";
 import ProductRepository from "./product.repository";
 import Product from "../../domain/entity/product";
-import OrderItem from "../../domain/entity/order_item";
-import Order from "../../domain/entity/order";
+import OrderItem from "../../domain/checkout/entity/order_item";
+import Order from "../../domain/checkout/entity/order";
 import OrderRepository from "./order.repository";
 
 describe("Order repository unit tests", () => {
