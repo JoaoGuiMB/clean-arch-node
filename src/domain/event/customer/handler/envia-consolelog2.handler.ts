@@ -1,5 +1,5 @@
-import Product from "../../../entity/product";
-import EventHandlerInterface from "../../@shared/event-handler.interface";
+import Product from "../../../product/entity/product";
+import EventHandlerInterface from "../../../@shared/event/event-handler.interface";
 import CustomerCreatedEvent from "../customer-created.event";
 
 export default class EnviaConsolelog2Handler

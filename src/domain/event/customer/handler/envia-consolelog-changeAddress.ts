@@ -1,7 +1,5 @@
-import Product from "../../../entity/product";
-import EventHandlerInterface from "../../@shared/event-handler.interface";
+import EventHandlerInterface from "../../../@shared/event/event-handler.interface";
 import ChangeAddressEvent from "../change-address.event";
-import CustomerCreatedEvent from "../customer-created.event";
 
 export default class EnviaConsoleLogChangeAddressHandler
   implements EventHandlerInterface<ChangeAddressEvent>

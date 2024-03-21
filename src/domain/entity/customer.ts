@@ -1,5 +1,5 @@
-import EventDispatcher from "../event/@shared/event-dispatcher";
-import EventDispatcherInterface from "../event/@shared/event-dispatcher.interface";
+import EventDispatcher from "../@shared/event/event-dispatcher";
+import EventDispatcherInterface from "../@shared/event/event-dispatcher.interface";
 import ChangeAddressEvent from "../event/customer/change-address.event";
 import CustomerCreatedEvent from "../event/customer/customer-created.event";
 import EnviaConsoleLogChangeAddressHandler from "../event/customer/handler/envia-consolelog-changeAddress";
