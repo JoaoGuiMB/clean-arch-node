@@ -1,5 +1,5 @@
-import Address from "../../entity/address";
-import Customer from "../../entity/customer";
+import Address from "../value-object/address";
+import Customer from "../entity/customer";
 
 describe("ChangeAddressEvent", () => {
   it("should emit a ChangeAddressEvent", () => {

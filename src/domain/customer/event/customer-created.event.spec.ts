@@ -1,4 +1,4 @@
-import Customer from "../../entity/customer";
+import Customer from "../entity/customer";
 
 import CustomerCreatedEvent from "./customer-created.event";
 
