@@ -37,6 +37,10 @@ export default class Customer {
     return this._eventDispatcher;
   }
 
+  get Address(): Address {
+    return this._address;
+  }
+
   static create(id: string, name: string): Customer {
     const customer = new Customer(id, name);
     customer.eventDispatcher.register(
@@ -65,10 +69,6 @@ export default class Customer {
   changeName(name: string) {
     this._name = name;
     this.validate();
-  }
-
-  get Address(): Address {
-    return this._address;
   }
 
   changeAddress(address: Address) {
