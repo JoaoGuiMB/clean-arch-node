@@ -1,5 +1,7 @@
+import Entity from "../../@shared/entity/entity.abstract";
 import EventDispatcher from "../../@shared/event/event-dispatcher";
 import EventDispatcherInterface from "../../@shared/event/event-dispatcher.interface";
+import NotificationError from "../../@shared/notification/notification.error";
 import ChangeAddressEvent from "../event/change-address.event";
 import CustomerCreatedEvent from "../event/customer-created.event";
 import EnviaConsoleLogChangeAddressHandler from "../event/handler/envia-consolelog-changeAddress";
@@ -7,8 +9,7 @@ import EnviaConsolelogHandler from "../event/handler/envia-consolelog.handler";
 import EnviaConsolelog2Handler from "../event/handler/envia-consolelog2.handler";
 import Address from "../value-object/address";
 
-export default class Customer {
-  private _id: string;
+export default class Customer extends Entity {
   private _name: string = "";
   private _address!: Address;
   private _active: boolean = false;
@@ -16,13 +17,13 @@ export default class Customer {
   private _eventDispatcher: EventDispatcherInterface = new EventDispatcher();
 
   constructor(id: string, name: string) {
-    this._id = id;
+    super(id);
     this._name = name;
     this.validate();
-  }
 
-  get id(): string {
-    return this._id;
+    if (this.notification.hasErrors()) {
+      throw new NotificationError(this.notification.getErrors());
+    }
   }
 
   get name(): string {
@@ -58,11 +59,17 @@ export default class Customer {
   }
 
   validate() {
-    if (this._id.length === 0) {
-      throw new Error("Id is required");
+    if (this.id.length === 0) {
+      this.notification.addError({
+        message: "Id is required",
+        context: "customer",
+      });
     }
     if (this._name.length === 0) {
-      throw new Error("Name is required");
+      this.notification.addError({
+        message: "Name is required",
+        context: "customer",
+      });
     }
   }
 
@@ -80,7 +87,7 @@ export default class Customer {
 
     const eventData = {
       customer: {
-        id: this._id,
+        id: this.id,
         name: this._name,
       },
       address: this._address,
